@@ -1,0 +1,133 @@
+menu "Tyzr app config"
+
+    config TYZR_DISABLE_ALARM_AFTER_BREAK
+        bool "Disable alarm after the break phase."
+        default n
+        help
+            Disable alarm after the break phase.
+
+    config TYZR_DISPLAY_BRIGHTNESS
+        int "Display brightness."
+        default 100
+        range 0 255
+        help
+            Set the display brightness.
+
+    config TYZR_SPEAKER_VOLUME
+        int "Speaker volume."
+        default 128
+        range 0 255
+        help
+            Set the speaker volume.
+
+    config TYZR_WAKEUP_SOURCE_GPIO_NUM
+        int "GPIO number used as wakeup source"
+        default 39
+        range 0 39
+        help
+            Only GPIOs with the RTC functionality can be used.
+            For different SoCs, the related GPIOs are:
+            ESP32: 0, 2, 4, 12-15, 25-27, 32-39;
+            ESP32-S2: 0-21;
+            ESP32-S3: 0-21.
+
+    config TYZR_USE_SPK_HAT
+        bool "Use SPK HAT"
+        default n
+        help
+            Enable this option for use with SPK HAT.
+
+    config TYZR_SCREEN_ROTATION
+        int "Screen Rotation"
+        default 1
+        range 0 3
+        help
+            Set the orientation of the LCD screen:
+            0 - Default (No rotation)
+            1 - Rotate 90° clockwise
+            2 - Upside-down (180° rotation)
+            3 - Rotate 90° counter-clockwise
+
+    config TYZR_DIGITS_POSITION_X
+        int "X Coordinate of the digits"
+        range 0 100
+        default 0
+        help
+            Set the X coordinate value. The range is 0 to 100.
+
+    config TYZR_DIGITS_POSITION_Y
+        int "Y Coordinate of the digits"
+        range 0 100
+        default 0
+        help
+            Set the Y coordinate value. The range is 0 to 100.
+
+    config TYZR_DIGITS_SCALING_FACTOR
+        int "Scaling factor of the digits"
+        range 1 2
+        default 1
+        help
+            Set the scaling factor of the digits.
+
+    config TYZR_IDLE_TIMEOUT
+        int "Length of inactivity in minutes before the deep sleep."
+        default 120
+        range 0 360
+        help
+            Set the length of inactivity in minutes before the deep sleep.
+
+    config TYZR_IDLE_TIMEOUT_WHEN_TIMER_STOPPED
+        int "Length in seconds before the deep sleep, when the timer is stopped."
+        default 5
+        range 0 360
+        help
+            Specify the time in seconds before the deep sleep, when the timer is stopped.
+
+    config TYZR_TIME_WORK_PHASE
+        int "Length of work phase in minutes."
+        default 25
+        range 0 60
+        help
+            Specify the length of work phase in minutes.
+
+    config TYZR_TIME_BREAK_PHASE
+        int "Length of break phase in minutes."
+        default 5
+        range 0 60
+        help
+            Specify the length of break phase in minutes.
+
+    config TYZR_DEBUG_GPIO
+        bool "Enable debug output from GPIO."
+        default n
+        help
+            You need 2 pins for this feature to work.
+
+    if TYZR_DEBUG_GPIO
+
+        config TYZR_DEBUG_TIMER_GPIO_NUM
+            int "Debug timer GPIO pin number"
+            default 2
+            range 0 39
+            help
+                Specify the GPIO pin number to use for debugging.
+                Ensure the specified GPIO pin is valid for your board.
+
+        config TYZR_DEBUG_MAIN_GPIO_NUM
+            int "Debug timer GPIO pin number"
+            default 5
+            range 0 39
+            help
+                Specify the GPIO pin number to use for debugging.
+                Ensure the specified GPIO pin is valid for your board.
+
+        config TYZR_DEBUG_DISP_GPIO_NUM
+            int "Debug timer GPIO pin number"
+            default 17
+            range 0 39
+            help
+                Specify the GPIO pin number to use for debugging.
+                Ensure the specified GPIO pin is valid for your board.
+
+    endif
+endmenu
